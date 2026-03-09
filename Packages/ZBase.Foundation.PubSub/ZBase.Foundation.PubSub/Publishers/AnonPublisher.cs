@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Buffers;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
 using ZBase.Foundation.PubSub.Internals;
@@ -15,7 +16,7 @@ namespace ZBase.Foundation.PubSub
 
         internal AnonPublisher(
               SingletonContainer<MessageBroker> brokers
-            , CappedArrayPool<UniTask> taskArrayPool
+            , ArrayPool<UniTask> taskArrayPool
         )
         {
             _publisher = new(brokers, taskArrayPool);

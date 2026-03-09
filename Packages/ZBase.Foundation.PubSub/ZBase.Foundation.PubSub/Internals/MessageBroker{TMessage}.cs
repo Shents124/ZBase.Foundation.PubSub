@@ -5,6 +5,7 @@
 #endif
 
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -20,12 +21,12 @@ namespace ZBase.Foundation.PubSub.Internals
         private readonly ZCPG.List<int> _ordering = new(1);
         private readonly Dictionary<int, ZCPG.ArrayDictionary<HandlerId, IHandler<TMessage>>> _handlerMap = new(1);
 
-        private CappedArrayPool<UniTask> _taskArrayPool;
+        private ArrayPool<UniTask> _taskArrayPool;
         private long _refCount;
 
-        public CappedArrayPool<UniTask> TaskArrayPool
+        public ArrayPool<UniTask> TaskArrayPool
         {
-            get => _taskArrayPool ?? CappedArrayPool<UniTask>.Shared8Limit;
+            get => _taskArrayPool ?? ArrayPool<UniTask>.Shared;
             set => _taskArrayPool = value ?? throw new ArgumentNullException(nameof(value));
         }
 
@@ -121,7 +122,7 @@ namespace ZBase.Foundation.PubSub.Internals
             , TMessage message
             , PublishingContext context
             , CancellationToken token
-            , CappedArrayPool<UniTask> taskArrayPool
+            , ArrayPool<UniTask> taskArrayPool
             , ILogger logger
         )
         {

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Buffers;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
 using ZBase.Foundation.PubSub.Internals;
@@ -9,11 +10,11 @@ namespace ZBase.Foundation.PubSub
     public partial class MessageSubscriber
     {
         private readonly SingletonContainer<MessageBroker> _brokers;
-        private readonly CappedArrayPool<UniTask> _taskArrayPool;
+        private readonly ArrayPool<UniTask> _taskArrayPool;
 
         internal MessageSubscriber(
               SingletonContainer<MessageBroker> brokers
-            , CappedArrayPool<UniTask> taskArrayPool
+            , ArrayPool<UniTask> taskArrayPool
         )
         {
             _brokers = brokers;

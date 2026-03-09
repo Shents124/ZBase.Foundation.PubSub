@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Threading;
 using ZBase.Collections.Pooled.Generic;
 using ZBase.Collections.Pooled.Generic.Internals.Unsafe;
@@ -36,7 +37,7 @@ namespace ZBase.Foundation.PubSub.Internals
               TScope scope
             , IHandler<TMessage> handler
             , int order
-            , CappedArrayPool<UniTask> taskArrayPool
+            , ArrayPool<UniTask> taskArrayPool
         )
         {
             var scopedBrokers = _scopedBrokers;
@@ -53,7 +54,7 @@ namespace ZBase.Foundation.PubSub.Internals
             }
         }
 
-        public MessageBroker<TMessage> Cache(TScope scope, CappedArrayPool<UniTask> taskArrayPool)
+        public MessageBroker<TMessage> Cache(TScope scope, ArrayPool<UniTask> taskArrayPool)
         {
             var scopedBrokers = _scopedBrokers;
 

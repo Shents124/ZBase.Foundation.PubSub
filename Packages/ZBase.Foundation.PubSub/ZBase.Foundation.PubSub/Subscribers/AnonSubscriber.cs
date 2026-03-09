@@ -4,6 +4,7 @@
 #define __ZBASE_FOUNDATION_PUBSUB_VALIDATION__
 #endif
 
+using System.Buffers;
 using Cysharp.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -21,7 +22,7 @@ namespace ZBase.Foundation.PubSub
 
         internal AnonSubscriber(
               SingletonContainer<MessageBroker> brokers
-            , CappedArrayPool<UniTask> taskArrayPool
+            , ArrayPool<UniTask> taskArrayPool
         )
         {
             _subscriber = new(brokers, taskArrayPool);

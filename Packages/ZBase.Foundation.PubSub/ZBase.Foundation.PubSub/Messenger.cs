@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using Cysharp.Threading.Tasks;
 using ZBase.Foundation.PubSub.Internals;
 using ZBase.Foundation.Singletons;
@@ -8,15 +9,17 @@ namespace ZBase.Foundation.PubSub
     public sealed class Messenger : IDisposable
     {
         private readonly SingletonContainer<MessageBroker> _brokers = new();
-        private readonly CappedArrayPool<UniTask> _taskArrayPool;
 
-        public Messenger()
+        public Messenger() : this(ArrayPool<UniTask>.Shared)
         {
-            _taskArrayPool = new(8);
-            MessageSubscriber = new(_brokers, _taskArrayPool);
-            MessagePublisher = new(_brokers, _taskArrayPool);
-            AnonSubscriber = new(_brokers, _taskArrayPool);
-            AnonPublisher = new(_brokers, _taskArrayPool);
+        }
+    
+        public Messenger(ArrayPool<UniTask> taskArrayPool)
+        {
+            MessageSubscriber = new(_brokers, taskArrayPool);
+            MessagePublisher = new(_brokers, taskArrayPool);
+            AnonSubscriber = new(_brokers, taskArrayPool);
+            AnonPublisher = new(_brokers, taskArrayPool);
         }
 
         public MessageSubscriber MessageSubscriber { get; }

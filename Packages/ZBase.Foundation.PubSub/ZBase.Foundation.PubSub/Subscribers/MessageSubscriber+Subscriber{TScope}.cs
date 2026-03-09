@@ -117,7 +117,7 @@ namespace ZBase.Foundation.PubSub
                 where TMessage : IMessage
 #endif
             {
-                ThrowIfHandlerIsNull(handler);
+                //ThrowIfHandlerIsNull(handler);
                 TrySubscribe(new HandlerFuncMessage<TMessage>(handler), order, out var subscription, logger);
                 return subscription;
             }
