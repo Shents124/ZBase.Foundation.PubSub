@@ -20,5 +20,5 @@ https://github.com/Shents124/ZBase.Foundation.git?path=/Packages/ZBase.Foundatio
 ```
 
 ```
-https://github.com/Shents124/ZBase.Foundation.PubSub.git?path=/ZBase.Foundation.PubSub
+https://github.com/Shents124/ZBase.Foundation.PubSub.git?path=/Packages/ZBase.Foundation.PubSub
 ```
